@@ -11,21 +11,36 @@ import com.santi.pmdm.virgen.mydialoglogin.MainActivity
 class Controller(var context : Context) : onLoginInterface {
 
     fun setActionEvent(){
-        val myActivity = context as MainActivity
+        val myActivity = context as MainActivity  //guardamos el contexto de la Activity
+
+        /*
+        Mostramos el DialogFragment utilizando Interfaz.
+         */
         myActivity.binding.btnLogin.setOnClickListener {
             initDialogWithInterface(myActivity)
         }
+
+        /*
+        Mostramos el DialogFragment utilizando lambdas.
+         */
         myActivity.binding.btnLogin2.setOnClickListener{
             initDialogWithFun(myActivity)
         }
     }
 
+    /*
+    ******* Parte de utilización Interfaz dentro del DialogFragment ********
+     */
+    // Método utilizado para un ejemplo de DialogFragment con interfaz, sin lambda.
     private fun initDialogWithInterface(mA : MainActivity) {
-        val dialog = DialogLogin(this)
+        val dialog = DialogLogin(this)  //Recordamos que el this es el mismo controller que implementa de una interfaz.
         dialog.show(mA.supportFragmentManager, "Login con Interfaz")
 
     }
 
+    /*
+    Lógica al método invocado en caso de un onClick del botón positivo.
+     */
     override fun onDialogPositiveClick(dialog: DialogFragment?) {
         val myDialogLogin= (dialog as DialogLogin)
         val myUserName = myDialogLogin.userName
@@ -37,12 +52,23 @@ class Controller(var context : Context) : onLoginInterface {
 
     }
 
+
+    /*
+    Lógica al método invocado en caso de un onClick del botón negative.
+     */
     override fun onDialogNegativeClick(dialog: DialogFragment?) {
         Toast.makeText(context, " Has cancelado el login", Toast.LENGTH_LONG).show()
     }
 
+
+
+
+    /*
+    ******* Parte de utilización de lambda dentro del DialogFragment ********
+     */
+
     private fun initDialogWithFun(mA : MainActivity){
-        val dialog = DialogLogin2(this,
+        val dialog = DialogLogin2(
             {
                 userName, password ->
                 renderize(userName, password)

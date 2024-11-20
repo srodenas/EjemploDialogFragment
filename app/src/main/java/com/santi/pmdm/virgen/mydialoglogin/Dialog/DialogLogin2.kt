@@ -11,8 +11,13 @@ import com.santi.pmdm.virgen.mydialoglogin.Interface.onLoginInterface
 import com.santi.pmdm.virgen.mydialoglogin.R
 import com.santi.pmdm.virgen.mydialoglogin.databinding.DialogLoginBinding
 
+
+
+/*
+   **Ejemplo de DialogFragment con paso de funciones, para invocar a los listener y tratar
+   **la lógica fuera de esta clase. --> LLAMADA DE ORDEN SUPERIOR
+ */
 class DialogLogin2 (
-    val controller : Controller,
     val onDialogPositiveClick: (String, String)->Unit,
     val onDialogNegativeClick: (String)-> Unit
 
@@ -48,7 +53,7 @@ class DialogLogin2 (
                         onDialogNegativeClick("Se ha cancelado")
                     })
 
-            builder.create()
+            .create()
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
